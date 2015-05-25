@@ -1,0 +1,17 @@
+mysql:
+  image: 'library/mysql:latest'
+  environment:
+    - MYSQL_ROOT_PASSWORD=root
+    - MYSQL_USER=root
+    - MYSQL_PASSWORD=root
+    - MYSQL_DATABASE=conference
+
+app:
+  build: .
+  links:
+    - mysql
+  volumes:
+    - ".:/opt/app"
+  ports:
+    - "9000:9000"
+  command: python /opt/app/run.py

@@ -1,0 +1,6 @@
+venv
+app/static/bower_components
+node_modules
+.sass-cache
+*.pyc
+*.swp

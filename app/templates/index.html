@@ -1,0 +1,369 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BBSFA Members</title>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/static/css/main.css" />
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" />
+    <!-- bower:css -->
+    <link rel="stylesheet" href="/static/bower_components/bootstrap-material-design/dist/css/material.css" />
+    <link rel="stylesheet" href="/static/bower_components/bootstrap-material-design/dist/css/ripples.css" />
+    <!-- endbower -->
+    <style>
+      body {
+        font-family: 'Open Sans', sans-serif;
+      }
+      header.header {
+        padding-bottom: 48px;
+        padding-left: 24px;
+        padding-right: 24px;
+        padding-top: 48px;
+        margin-bottom:24px;
+      }
+      .content {
+        background:#fff;
+        padding-bottom: 48px;
+        padding-left: 24px;
+        padding-right: 24px;
+        padding-top: 48px;
+        font-size:16px;
+        line-height:22px;
+        margin-bottom:24px;
+      }
+    </style>
+  </head>
+  <body ng-controller="AppCtrl">
+    <div class="container-fluid">
+
+      <header class="header row">
+      <div class="col-xs-12 text-center">
+        <h1 style="color:rgb(64, 64, 64);margin-bottom:0px;font-wieght:700;font-size:64px;font-family: 'Open Sans', sans-serif;">BBSFA Connect 2015</h1>
+        <h2 style="margin-top:0px;"><small>September 26, Marshfield Clinic</small></h2>
+      </div>
+      </header>
+
+      <div class="row" data-ng-show="showPostSignup">
+        <div class="col-sm-offset-3 col-sm-6">
+          <div class="well">
+            <h3>You're registered!</h3>
+            <p>Your confirmation number is <strong>1230</strong>. We'll be emailing you more details as the event become closer.</p>
+            <div class="check-payment-info" ng-show="signup.payment_method == 'check'">
+              <p>Make your check payable to BBSFA and mail to:</p>
+              Darla Mansker, Secretary, BBSFA<br />
+              1197 Colby Ct.<br />
+              St. Peters, MO 63376.<br />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div ng-hide="showPostSignup">
+
+        <div class="row content">
+          <div class="col-sm-offset-3 col-sm-6">
+            Mixtape mlkshk single-origin coffee, Helvetica bicycle rights letterpress stumptown direct trade Tumblr photo booth normcore asymmetrical pickled pug lomo. Migas mixtape gluten-free, Odd Future chia mumblecore synth. Synth chia vegan small batch, seitan Schlitz whatever sriracha fixie selfies wayfarers kitsch mixtape. Authentic Odd Future readymade ennui, beard tilde lomo. Farm-to-table cronut swag pop-up. Viral pork belly cold-pressed gentrify craft beer Shoreditch. Synth Bushwick gastropub pork belly, cray Odd Future four dollar toast viral Thundercats.
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-offset-3 col-sm-6">
+            <form class="form-horizontal" ng-submit="submit()">
+              <div class="well">
+                <fieldset>
+                  <legend>Please enter your contact information</legend>
+                  <div class="form-group">
+                    <label for="name" class="col-md-2 control-label">Name</label>
+                    <div class="col-md-10">
+                      <input type="text" class="form-control" id="name" required ng-model="signup.name">
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="address" class="col-md-2 control-label">Address</label>
+                    <div class="col-md-10">
+                      <div class="row form-group">
+                        <div class="col-xs-12">
+                          <input type="text" class="form-control" id="address" placeholder="Street" required ng-model="signup.address">
+                        </div>
+                      </div>
+                      <div class="row form-group">
+                        <div class="col-xs-12">
+                          <input type="text" class="form-control" id="address2" placeholder="Line 2" ng-model="signup.address2">
+                        </div>
+                      </div>
+                      <div class="row form-group">
+                        <div class="col-xs-4">
+                          <input type="text" class="form-control" id="city" placeholder="City" required ng-model="signup.city">
+                        </div>
+                        <div class="col-xs-4">
+                          <input type="text" class="form-control" id="state" placeholder="State" required ng-model="signup.state">
+                        </div>
+                        <div class="col-xs-4">
+                          <input type="text" class="form-control" id="zip" placeholder="Zip/Postal" required ng-model="signup.zip">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="email" class="col-md-2 control-label">Email</label>
+                    <div class="col-md-10">
+                      <input type="email" class="form-control" id="email" required ng-model="signup.email">
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="phone" class="col-md-2 control-label">Phone</label>
+                    <div class="col-md-10">
+                      <input type="tel" class="form-control" id="phone" ng-model="signup.phone">
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="name" class="col-md-2 control-label">Shirt Size</label>
+                    <div class="col-md-10">
+                      <select class="form-control"
+                        required
+                        ng-model="signup.shirt_size"
+                        ng-options="size.name group by size.group for size in shirtSizes">
+                        <option></option>
+                      </select>
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+
+              <div class="well">
+                <fieldset>
+                  <legend>
+                    Who's coming with you?
+                  </legend>
+                  <p>$40.00 for each additional adult, $20.00 for those under the age of 18.</p>
+                  <div class="text-right">
+                    <a class="btn btn-fab btn-raised btn-material-blue" ng-click="addAttendee()">
+                      <i class="mdi-content-add"></i><div class="ripple-wrapper"></div>
+                    </a>
+                  </div>
+                </fieldset>
+              </div>
+
+              <div class="well" ng-repeat="attendee in signup.attendees">
+                <fieldset>
+                  <legend>
+                    Attendee {{ $index + 1 }}
+                  </legend>
+                  <div class="form-group">
+                    <label for="attendee-name-{{ $index }}" class="col-md-3 control-label">Name</label>
+                    <div class="col-md-9">
+                      <input type="text" class="form-control" id="attendee-name-{{ $index }}" required ng-model="attendee.name">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="attendee-name-{{ $index }}" class="col-md-3 control-label">Ticket Type</label>
+                    <div class="col-md-9">
+                      <div class="radio radio-primary">
+                        <label>
+                          <input type="radio" name="ticket-type-{{ $index }}" value="adult" ng-model="attendee.ticket_type">
+                          Adult
+                        </label>
+                      </div>
+                      <div class="radio radio-primary">
+                        <label>
+                          <input type="radio" name="ticket-type={{ $index }}" id="optionsRadios1" value="child" ng-model="attendee.ticket_type">
+                          Child
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="name" class="col-md-3 control-label">Shirt Size</label>
+                    <div class="col-md-9">
+                      <select class="form-control"
+                        required
+                        ng-model="attendee.shirt_size"
+                        ng-options="size.name group by size.group for size in shirtSizes">
+                        <option></option>
+                      </select>
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+
+
+              <div class="well">
+                <fieldset>
+                  <legend>BBS Relationship</legend>
+                  <p>Providing the following information allows us to address your needs and interests at the conference.</p>
+                  <div class="form-group">
+                    <label class="control-label col-md-7" for="bbsRelationship">What's your relationship to a person with BBS?</label>
+                    <div class="col-md-5">
+                      <select class="form-control" id="bbsRelationship" ng-model="signup.bbs.relationship" required>
+                        <option></option>
+                        <option>Myself</option>
+                        <option>Spouse</option>
+                        <option>Sibling</option>
+                        <option>Parent</option>
+                        <option>Grandparent</option>
+                        <option>Other</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="control-label col-md-7" for="bbsBirthYear">What year was this person born?</label>
+                    <div class="col-md-5">
+                      <select id="bbsBirthYear"
+                        class="form-control"
+                        ng-options="year as year for year in birthYears"
+                        ng-model="signup.bbs.birth_year">
+                        <option></option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="control-label col-md-7" for="bbsGene">If known, which gene is affected?</label>
+                    <div class="col-md-5">
+                      <select class="form-control" id="bbsGene"
+                        ng-options="gene as gene for gene in bbsGenes"
+                        ng-model="signup.bbs.gene">
+                        <option></option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="control-label col-md-7" for="bbsCribbs">Has this person joined CRIBBS?</label>
+                    <div class="col-md-5">
+                      <select class="form-control" id="bbsCribbs" ng-model="signup.bbs.cribbs">
+                        <option></option>
+                        <option value="joined">We've already joined</option>
+                        <option value="more_information">We'd like more information</option>
+                        <option value="not_interested_or_eligible">We're not interested or eligible</option>
+                      </select>
+                    </div>
+                  </div>
+
+                </fieldset>
+              </div>
+
+
+              <div class="well">
+                <fieldset>
+                  <legend>
+                    Payment
+                  </legend>
+
+                  <div class="form-group">
+                    <label class="control-label col-md-7" for="total">Conference Registration</label>
+                    <div class="col-md-5">
+                      <div class="input-group">
+                        <span class="input-group-addon">$</span>
+                        <input class="form-control" readonly id="total" ng-model="registrationAmount" />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="control-label col-md-7" for="donationAmount">Additional Donation</label>
+                    <div class="col-md-5">
+                      <div class="input-group">
+                        <span class="input-group-addon" data-ng-show="signup.donation != 'other'">$</span>
+                        <span class="input-group-addon" data-ng-show="signup.donation == 'other'"></span>
+                        <select class="form-control" id="donationAmount" ng-model="signup.donation">
+                          <option value="">0.00</option>
+                          <option value="25.00">25.00</option>
+                          <option value="50.00">50.00</option>
+                          <option value="100.00">100.00</option>
+                          <option value="500.00">500.00</option>
+                          <option value="1000.00">1,000.00</option>
+                          <option value="other">Other</option>
+                          </select>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="form-group" ng-show="signup.donation == 'other'">
+                        <label class="control-label col-md-7" for="donationOther">Donation Amount</label>
+                        <div class="col-md-5">
+                          <div class="input-group">
+                            <span class="input-group-addon">$</span>
+                            <input class="form-control" type="number" id="donationOther" ng-model="signup.donation_other" />
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label class="control-label col-md-7" for="total">Total</label>
+                        <div class="col-md-5">
+                          <div class="input-group">
+                            <span class="input-group-addon">$</span>
+                            <input class="form-control" type="number" id="total" readonly ng-model="total" />
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label class="control-label col-md-7" for="paymentMethod">Payment Method</label>
+                        <div class="col-md-5">
+                          <select class="form-control" id="donationAmount" ng-model="signup.payment_method">
+                            <option value="paypal">PayPal</option>
+                            <option value="check">Check</option>
+                            </select>
+                            </div>
+                          </div>
+                          <div class="form-group" ng-show="signup.payment_method=='paypal'">
+                            <div class="row">
+                              <div class="col-xs-12 text-center">
+                                <p class="text-info">You'll be redirected to PayPal to complete your transaction.</p>
+                              </div>
+                            </div>
+                          </div>
+
+                        </fieldset>
+                      </div>
+                      <div class="form-group">
+                        <div class="row">
+                          <div class="col-xs-12 text-center">
+                            <button type="submit" class="btn btn-primary" ng-disabled="submitting">
+                              <span ng-show="!submitting">Register for BBSFA Connect 15</span>
+                              <span ng-show="submitting">Registering <i class="fa fa-spinner fa-spin"></i></span>
+                              <div class="ripple-wrapper"></div>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <footer class="row">
+              <div class="col-xs-12">
+                <a href="https://www.facebook.com/BardetBiedlSyndromeFamilyAssociation">
+                  <i class="fa fa-facebook-square"></i>
+                  <span class="sr-only">Visit us on Facebook</span>
+                </a>
+                <a href="http://www.bardetbiedl.org/">
+                  <i class="fa fa-tumblr-square"></i>
+                  <span class="sr-only">Visit Bardet Biedl Family Association Website</span>
+                </a>
+                <p>
+                <small>&copy; 2014 <a href="http://www.bardetbiedl.org/">Bardet Biedl Syndrome Family Association</a></small>
+                </p>
+              </div>
+              </footer>
+            </div>
+            <!-- bower:js -->
+            <script src="/static/bower_components/jquery/dist/jquery.js"></script>
+            <script src="/static/bower_components/bootstrap-material-design/dist/js/material.js"></script>
+            <script src="/static/bower_components/bootstrap-material-design/dist/js/ripples.js"></script>
+            <script src="/static/bower_components/angular/angular.js"></script>
+            <script src="/static/bower_components/angular-resource/angular-resource.js"></script>
+            <!-- endbower -->
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+            <script src="/static/js/app.js"></script>
+          </body>
+        </html>
