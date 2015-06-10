@@ -22,6 +22,7 @@
         padding-right: 24px;
         padding-top: 48px;
         margin-bottom:24px;
+
       }
       .content {
         background:#fff;
@@ -39,11 +40,11 @@
     <div class="container-fluid">
       <header class="header row">
         <div class="col-xs-12 text-center">
-          <h1 style="color:rgb(64, 64, 64);margin-bottom:0px;font-wieght:700;font-size:64px;font-family: 'Open Sans', sans-serif;">BBSFA Connect 2015</h1>
+          <h1 style="color:rgb(107, 106, 111);margin-bottom:0px;font-weight:700;font-size:64px;font-family: 'Open Sans', sans-serif;">BBSFA Connect 2015</h1>
           <h2 style="margin-top:0px;"><small>September 26, Marshfield Clinic</small></h2>
         </div>
       </header>
-      <div class="row" data-ng-show="showPostSignup">
+      <div class="row" data-ng-show="showPostSignup" data-ng-cloak>
         <div class="col-sm-offset-3 col-sm-6">
           <div class="well">
             <h3>You're registered!</h3>
@@ -62,7 +63,18 @@
 
         <div class="row content">
           <div class="col-sm-offset-3 col-sm-6">
-            Mixtape mlkshk single-origin coffee, Helvetica bicycle rights letterpress stumptown direct trade Tumblr photo booth normcore asymmetrical pickled pug lomo. Migas mixtape gluten-free, Odd Future chia mumblecore synth. Synth chia vegan small batch, seitan Schlitz whatever sriracha fixie selfies wayfarers kitsch mixtape. Authentic Odd Future readymade ennui, beard tilde lomo. Farm-to-table cronut swag pop-up. Viral pork belly cold-pressed gentrify craft beer Shoreditch. Synth Bushwick gastropub pork belly, cray Odd Future four dollar toast viral Thundercats.
+
+
+            <p>BBSFA Connect 2015 is focused on helping BBS families connect with and learn from each other in addition to having the chance to hear directly from medical professionals who treat BBS patients.</p>
+
+            <p>Morning sessions will feature doctors from the BBS Center of Excellence. Afternoon sessions will be co-led by a member of the BBSFA and staff from Marshfield Clinic and focus on discussions between BBS families on the most important issues in daily life. There will be conversations on topics like Transitioning to Adulthood, BBS and the Teen Years, Newly Diagnosed, etc., all chosen by conference attendees.</p>
+
+            <p>
+            We can't wait to see you!
+            For information about travel arrangements, please contact Mary Morris at mary.morris@bardetbiedl.org.
+            </p>
+
+
           </div>
         </div>
 
@@ -140,7 +152,7 @@
                     Who's coming with you?
                   </legend>
                   <p>$40.00 for each additional adult, $20.00 for those under the age of 18.</p>
-                  <div class="text-right">
+                  <div class="text-right fab-container">
                     <a class="btn btn-fab btn-raised btn-material-blue" data-ng-click="addAttendee()">
                       <i class="mdi-content-add"></i><div class="ripple-wrapper"></div>
                     </a>
@@ -190,6 +202,56 @@
                 </fieldset>
               </div>
 
+              <div class="well">
+                <fieldset>
+                  <legend>Additional T-Shirts</legend>
+                  <p>Additional t-shirts will be available for $15.00 each, please specify the quantity below.</p>
+                  <div class="row">
+                    <div class="col-xs-12">
+                    <table class="table table-striped">
+                      <tr>
+                        <th></th>
+                        <th>S</th>
+                        <th>M</th>
+                        <th>L</th>
+                        <th>XL</th>
+                        <th>2XL</th>
+                        <th>3XL</th>
+                      </tr>
+                      <tr>
+                        <th>Youth</th>
+                        <td ng-repeat="size in shirtSizes | filter:{group:'Youth'}">
+                          <select class="form-control" data-ng-model="signup.additional_tshirts[size.id]">
+                            <option>0</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                          </select>
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <th>Adult</th>
+                        <td ng-repeat="size in shirtSizes | filter:{group:'Adult'}">
+                          <select class="form-control" data-ng-model="signup.additional_tshirts[size.id]">
+                            <option>0</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                          </select>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+                </fieldset>
+              </div>
 
               <div class="well">
                 <fieldset>

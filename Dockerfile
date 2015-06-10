@@ -23,6 +23,7 @@ RUN pip install itsdangerous==0.24
 RUN pip install wsgiref==0.1.2
 RUN pip install nameparser==0.2.10
 RUN pip install MySQL-python==1.2.5
+RUN pip install mailchimp==2.0.9
 
 ADD . /opt/app
 

@@ -1,7 +1,7 @@
 from flask import Flask
 from flask import request, render_template, url_for
 from flask.json import jsonify
-from flask.ext.mail import Mail
+from flask.ext.mail import Mail, Message
 from flask.ext.sqlalchemy import SQLAlchemy
 
 class CustomFlask(Flask):
@@ -17,7 +17,16 @@ class CustomFlask(Flask):
 
 app = CustomFlask(__name__)
 app.config.from_object('app.config.DefaultConfig')
+app.config['MAIL_DEFAULT_SENDER'] = 'noreply@bardetbiedl.org'
+app.config['MAIL_SERVER'] = 'smtp.mandrillapp.com'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USERNAME'] = 'admin@bardetbiedl.org'
+app.config['MAIL_PASSWORD'] = 'br16fJGZVE3I8a7b16e1Pg'
+app.config['SECRET_KEY'] = 'noreply@bardetbiedl.org'
+
 db = SQLAlchemy(app)
+mail = Mail()
+mail.init_app(app)
 
 @app.route('/')
 def index():
@@ -29,7 +38,8 @@ def ipn():
 
 @app.route('/api/signup', methods=['POST'])
 def signup():
-    from app.models import Signup
+    from app.models import Signup, TShirt
+    from mailchimp import Mailchimp, Lists
     from nameparser import HumanName
     from datetime import datetime
     import urllib
@@ -73,6 +83,7 @@ def signup():
     db.session.flush()
     
     attendee_cost = 0
+    attendees     = []
     for attendee in request.json.get('attendees'):
         name = HumanName(attendee['name'])
         a = Signup(
@@ -84,14 +95,35 @@ def signup():
         a.attendee_of = signup.id
         a.ticket_cost = ticket_types[a.ticket_type]
         attendee_cost += a.ticket_cost
+        attendees.append(a)
 
         db.session.add(a)
         db.session.flush()
+    
+    additional_tshirts = request.json.get('additional_tshirts')
+    additional_tshirt_cost = 0
+    for size, quantity in additional_tshirts.iteritems():
+        t = TShirt(
+          signup_id=signup.id,
+          size=size,
+          quantity=quantity
+        )
+        additional_tshirt_cost += (15 * int(t.quantity))
+        db.session.add(t)
+        db.session.flush()
 
-    signup.registration_amount = signup.ticket_cost + attendee_cost
+    signup.registration_amount = signup.ticket_cost + attendee_cost + additional_tshirt_cost
     signup.total_amount = signup.registration_amount + signup.donation_amount
     db.session.commit()
 
+    # Put them in MailChimp
+    mailchimp = Mailchimp('374952867b477cf38a8f8cef6faabe23-us3')
+    lists = Lists(mailchimp)
+    merge_vars = {
+      'FNAME': signup.first_name,
+      'LNAME': signup.last_name
+    }
+    lists.subscribe('d151d486a6', {'email': signup.email}, merge_vars, double_optin=False, update_existing=True)
 
     # Build the PayPal link
     # https://developer.paypal.com/webapps/developer/docs/classic/paypal-payments-standard/integration-guide/Appx_websitestandard_htmlvariables/#id08A6HF00TZS
@@ -105,9 +137,22 @@ def signup():
         'cmd': '_xclick',
         'item_number': signup.id,
         'item_name': 'BBSFA Connect 2015',
-        'amount': signup.registration_amount,
+        'amount': signup.total_amount,
         'notify_url': notify_url
     }
 
     paypal_url= url + '?' + urllib.urlencode(params)
+
+    # Send email
+    msg = Message('You\'re registered for BBSFA Connect 2015!',
+            recipients=[signup.email],
+            sender=('Darla Mansker', 'darla.mansker@bardetbiedl.org'))
+
+    msg.html = render_template('email.html', 
+      signup=signup, 
+      paypal_url=paypal_url, 
+      attendees=attendees 
+    )
+    mail.send(msg)
+
     return jsonify(id=signup.id, paypal_url=paypal_url)

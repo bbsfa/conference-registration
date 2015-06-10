@@ -66,6 +66,7 @@ $(document).ready(function() {
     $scope.signup = {
       attendees: [],
       bbs: {},
+      additional_tshirts: {},
       payment_method: 'paypal'
     };
 
@@ -85,6 +86,7 @@ $(document).ready(function() {
     $scope.signup.bbs.birth_year = birthYears[6];
     $scope.signup.bbs.cribbs = 'joined';
 
+
     $scope.addAttendee = function() {
       $scope.signup.attendees.push({
         name: '',
@@ -98,7 +100,8 @@ $(document).ready(function() {
         var ticketType = $scope.signup.attendees[i].ticket_type;
         total += ticketType === 'child' ? 20 : 40;
       }
-      return total;
+
+      return total + calculateShirtCost();
 
     };
 
@@ -116,6 +119,14 @@ $(document).ready(function() {
       }
     };
 
+    var calculateShirtCost = function() {
+      var count = 0;
+      for (var key in $scope.signup.additional_tshirts) {
+        count += +$scope.signup.additional_tshirts[key];
+      }
+      return count * 15;
+    };
+
     var updateTotal = function() {
       $scope.total = $scope.registrationAmount + donation;
     };
@@ -128,6 +139,11 @@ $(document).ready(function() {
       updateTotal();
     };
 
+    var onAdditionalShirtsChange = function() {
+      $scope.registrationAmount = calculateRegistrationAmount();
+      updateTotal();
+    };
+
     $scope.$watch('signup.attendees', function() {
       $scope.registrationAmount = calculateRegistrationAmount();
       updateTotal();
@@ -135,6 +151,7 @@ $(document).ready(function() {
 
     $scope.$watch('signup.donation', onDonationChange);
     $scope.$watch('signup.donation_other', onDonationChange);
+    $scope.$watch('signup.additional_tshirts', onAdditionalShirtsChange, true);
 
     $scope.submit = function() {
       var args = angular.copy($scope.signup);

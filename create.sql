@@ -25,3 +25,10 @@ create table signup(
   attendee_of integer(10),
   created_at datetime
 ) ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8;
+
+create table tshirt(
+  id integer(10) not null auto_increment primary key,
+  signup_id integer(10) not null,
+  size varchar(3) not null,
+  quantity integer(10) not null
+) ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8;

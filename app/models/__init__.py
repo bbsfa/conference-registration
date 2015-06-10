@@ -28,3 +28,13 @@ class Signup(db.Model):
   payment_method = db.Column(db.String(6))
   payment_status = db.Column(db.String(16))
   created_at = db.Column(db.DateTime)
+
+
+class TShirt(db.Model):
+
+  __tablename__ = 'tshirt'
+
+  id = db.Column(db.Integer, primary_key=True)
+  signup_id = db.Column(db.Integer)
+  size = db.Column(db.String(3))
+  quantity = db.Column(db.Integer)
