@@ -12,6 +12,7 @@ RUN apt-get -y install \
     nginx \
     supervisor
 
+RUN pip install uwsgi
 RUN pip install Flask==0.10.1
 RUN pip install Flask-Mail==0.9.0
 RUN pip install Flask-SQLAlchemy==1.0
@@ -26,6 +27,8 @@ RUN pip install MySQL-python==1.2.5
 RUN pip install mailchimp==2.0.9
 
 ADD . /opt/app
+ADD config/uwsgi.ini /etc/uwsgi.ini
+ADD config/supervisord.conf /etc/supervisord.conf
 
-EXPOSE 9000 80 443
+EXPOSE 9000
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]

@@ -1,0 +1,30 @@
+Hi %% signup.first_name %%,
+<br /><br />
+<b>Thanks for registering for the BBSFA Connect 2015</b>
+<br /><br />
+Your confirmation number is: %% signup.id %%.<br />
+Your total registration cost is: %% "$%.2f"|format(signup.total_amount) %%.<br />
+
+<% if attendees %>
+Your registration also covers:
+<ul>
+<% for attendee in attendees %>
+<li>%% attendee.first_name %% %% attendee.last_name %%</li>
+<% endfor %>
+</ul>
+<% endif %>
+<% if signup.payment_method == 'check' %>
+Please make your check payable to: <b>BBSFA</b> and mail to Darla Mansker, Secretary, BBSFA, 1197 Colby Ct., St.Peters, MO 63376.
+<% else %>
+If you haven't paid via PayPal yet, please <a href="%% paypal_url %%">click here</a> to complete your transaction.
+<% endif %>
+
+<br /><br />
+Please direct all registration inquiries to:
+<br />
+Darla Mansker<br />
+Phone: 636-697-8986<br />
+Email: darla.mansker@bardetbiedl.org
+<br /><br />
+Thanks,<br />
+The BBSFA Board
