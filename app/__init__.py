@@ -111,9 +111,15 @@ def signup():
         additional_tshirt_cost += (15 * int(t.quantity))
         db.session.add(t)
         db.session.flush()
+    
+    paypal_fee = 0
+    if signup.payment_method == 'paypal':
+        paypal_fee = 3
 
-    signup.registration_amount = signup.ticket_cost + attendee_cost + additional_tshirt_cost
+    signup.registration_amount = signup.ticket_cost + attendee_cost + additional_tshirt_cost + paypal_fee
     signup.total_amount = signup.registration_amount + signup.donation_amount
+
+
     db.session.commit()
 
     # Put them in MailChimp
