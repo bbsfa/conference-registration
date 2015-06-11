@@ -51,7 +51,7 @@
             <p>Your confirmation number is <strong>1230</strong>. We'll be emailing you more details as the event become closer.</p>
             <div class="check-payment-info" data-ng-show="signup.payment_method == 'check'">
               <p>Make your check payable to BBSFA and mail to:</p>
-              Darla Mansker, Secretary, BBSFA<br />
+              Mary Morris, Secretary, BBSFA<br />
               1197 Colby Ct.<br />
               St. Peters, MO 63376.<br />
             </div>
@@ -71,7 +71,7 @@
 
             <p>
             We can't wait to see you!
-            For information about travel arrangements, please contact Mary Morris at mary.morris@bardetbiedl.org.
+            For information about travel arrangements, please contact Mary Morris at <a href="mailto:mary.morris@bardetbiedl.org">mary.morris@bardetbiedl.org</a>
             </p>
 
 
@@ -355,6 +355,16 @@
                   </div>
 
                   <div class="form-group">
+                    <label class="control-label col-md-7" for="total">PayPal Fee</label>
+                    <div class="col-md-5">
+                      <div class="input-group">
+                        <span class="input-group-addon">$</span>
+                        <input class="form-control" type="number" id="total" readonly data-ng-model="paypalFee" />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
                     <label class="control-label col-md-7" for="total">Total</label>
                     <div class="col-md-5">
                       <div class="input-group">
@@ -367,7 +377,8 @@
                   <div class="form-group">
                     <label class="control-label col-md-7" for="paymentMethod">Payment Method</label>
                     <div class="col-md-5">
-                      <select class="form-control" id="paymentMethod" data-ng-model="signup.payment_method" required>
+                      <select class="form-control" id="paymentMethod" data-ng-model="signup.payment_method"
+                        data-ng-change="paymentMethodChange()" required>
                         <option value="">Select a payment method&hellip;</option>
                         <option value="paypal">PayPal</option>
                         <option value="check">Check</option>

@@ -146,7 +146,7 @@ def signup():
     # Send email
     msg = Message('You\'re registered for BBSFA Connect 2015!',
             recipients=[signup.email],
-            sender=('Darla Mansker', 'darla.mansker@bardetbiedl.org'))
+            sender=('Mary Morris', 'mary.morris@bardetbiedl.org'))
 
     msg.html = render_template('email.html', 
       signup=signup, 

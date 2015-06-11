@@ -62,7 +62,6 @@ $(document).ready(function() {
     $scope.shirtSizes = shirtSizes;
     $scope.bbsGenes = bbsGenes;
     $scope.birthYears = birthYears;
-
     $scope.signup = {
       attendees: [],
       bbs: {},
@@ -70,7 +69,7 @@ $(document).ready(function() {
       payment_method: 'paypal'
     };
 
-    // Test Data
+    /*
     $scope.signup.name      = 'Gary Hurst';
     $scope.signup.address   = '4879 Hardman Road';
     $scope.signup.address2  = '';
@@ -85,7 +84,7 @@ $(document).ready(function() {
     $scope.signup.bbs.gene = bbsGenes[1];
     $scope.signup.bbs.birth_year = birthYears[6];
     $scope.signup.bbs.cribbs = 'joined';
-
+    */
 
     $scope.addAttendee = function() {
       $scope.signup.attendees.push({
@@ -128,7 +127,7 @@ $(document).ready(function() {
     };
 
     var updateTotal = function() {
-      $scope.total = $scope.registrationAmount + donation;
+      $scope.total = $scope.registrationAmount + donation + $scope.paypalFee;
     };
 
     var onDonationChange = function(newValue, oldValue) {
@@ -136,6 +135,11 @@ $(document).ready(function() {
         return;
       }
       donation = calculateDonation();
+      updateTotal();
+    };
+
+    var paymentMethodChange = function() {
+      $scope.paypalFee = $scope.signup.payment_method === 'paypal' ? 3 : 0;
       updateTotal();
     };
 
@@ -152,6 +156,8 @@ $(document).ready(function() {
     $scope.$watch('signup.donation', onDonationChange);
     $scope.$watch('signup.donation_other', onDonationChange);
     $scope.$watch('signup.additional_tshirts', onAdditionalShirtsChange, true);
+    $scope.$watch('signup.payment_method', paymentMethodChange);
+
 
     $scope.submit = function() {
       var args = angular.copy($scope.signup);
