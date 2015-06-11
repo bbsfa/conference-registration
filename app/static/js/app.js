@@ -175,6 +175,10 @@ $(document).ready(function() {
           $scope.showPostSignup = true;
         }
       });
+      promise.catch(function() {
+        alert('An error occured while registering. Please try again.');
+        $scope.submitting = false;
+      });
       promise.finally(function() {
         if ($scope.showPostSignup) {
           $scope.submitting = false;
